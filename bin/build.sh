@@ -16,7 +16,7 @@ cd HiveChat
 app_start_line=$(grep -n 'app:' docker-compose.yml | cut -d: -f1)
 
 # 从app服务开始的行之后查找image行
-image_line=$(sed -n "${app_start_line},\$p" docker-compose.yml | grep 'image:')
+image_line=$(sed -n "${app_start_line},\$p" docker-compose.yml | grep 'image:' | head -n 1)
 
 # 使用awk提取image的值
 image_info=$(echo "$image_line" | awk -F': ' '{print $2}')

@@ -1,3 +1,4 @@
 [submodule "HiveChat"]
 	path = HiveChat
 	url = https://github.com/HiveNexus/HiveChat.git
+	branch = main

@@ -9,8 +9,9 @@ abs_path=$(cd "$(dirname "$0")"; pwd)
 cd "$abs_path"
 cd ..
 
-cp -r resources/app HiveChat/
+cp -r resources/* HiveChat/
 cd HiveChat
+cp .env.example .env
 
 # 先找到app服务开始的行号
 app_start_line=$(grep -n 'app:' docker-compose.yml | cut -d: -f1)
@@ -21,10 +22,11 @@ image_line=$(sed -n "${app_start_line},\$p" docker-compose.yml | grep 'image:' |
 # 使用awk提取image的值
 image_info=$(echo "$image_line" | awk -F': ' '{print $2}')
 
-if [ -n "$image_info" ]; then
-    echo "app的image信息为: $image_info"
-else
+if [ -z "$image_info" ]; then
     echo "未找到app的image信息。"
 fi
 
+echo "app的image信息为: $image_info"
+echo "开始构建app的image..."
+echo "docker build -t ${image_info} ."
 docker build -t ${image_info} .

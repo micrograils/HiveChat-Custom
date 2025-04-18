@@ -8,6 +8,6 @@ git submodule update --init --recursive
 
 ```bash
 git add .
-git commit -m "Update"
+git commit -m "Update HiveChat submodule to track main branch"
 git push
 ```
